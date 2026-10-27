@@ -21,7 +21,7 @@ FAMILIES = [
     ("GLM-5.3-Flash (cloud)",       ["glm53_mbpp.jsonl"]),
     ("Qwen-3.8-Flash (cloud)",      ["qwen38flash_mbpp.jsonl"]),
     ("GPT-5.4 (cloud)",             ["gpt54_mbpp.jsonl"]),
-    ("GPT-6-Luna (cloud)",          ["gpt6luna_mbpp.jsonl"]),
+    ("GPT-6-Luna (cloud)",          ["gpt6luna_mbpp.jsonl"]),  # complete 947 ($0.78)
     ("Kimi-K2.8-hs (subscription)", ["kimi_mbpp.jsonl"]),
     ("Athena Flash-Next (local)",   ["athena_mbpp_s0.jsonl", "athena_mbpp_s1.jsonl",
                                      "athena_mbpp_c.jsonl", "athena_mbpp_d.jsonl",
