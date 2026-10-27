@@ -1,13 +1,26 @@
 \begin{table}[t]
 \centering
-\caption{False-acceptance rate $\kappa = P(A{=}1 \mid T{=}0)$ across models. Partial sweeps noted.}
+\caption{MBPP results, five model families. $\kappa = P(A{=}1 \mid T{=}0)$
+(false-acceptance rate), $\tau = P(A{=}1 \mid T{=}1)$ (true-acceptance),
+$\Delta = \tau - \kappa$, $\Lambda = \tau/\kappa$. Partial sweeps noted.}
 \label{tab:kappa_mbpp}
-\begin{tabular}{lrrc}
+\begin{tabular}{lrrccccc}
 \hline
-Model & $n_{T=0}$ & $\hat{\kappa}$ (\%) & 95\% CI \\
+Model & $n_\text{tasks}$ & $n_{T=0}$ & $\hat\kappa$ (\%) & 95\% CI &
+$\hat\tau$ (\%) & $\Delta$ (pt) & $\Lambda$ \\
 \hline
-GLM-5.3-Flash (cloud) (partial) & 183 & 65.6 & [58.7, 72.5] \\
-Qwen-3.8-Flash (cloud) (partial) & 68 & 48.5 & [36.7, 60.4] \\
+DeepSeek-V4.1-Flash (cloud) (partial) -- selfcheck & 946 & 420 & 82.4 & [78.7, 86.0] & 97.0 & 14.6 & 1.18 \\
+DeepSeek-V4.1-Flash (cloud) (partial) -- steelman & 946 & 430 & 70.2 & [65.9, 74.6] & 97.1 & 26.9 & 1.38 \\
+GLM-5.3-Flash (cloud) -- selfcheck & 947 & 340 & 82.1 & [78.0, 86.1] & 97.0 & 15.0 & 1.18 \\
+GLM-5.3-Flash (cloud) -- steelman & 947 & 371 & 66.6 & [61.8, 71.4] & 97.7 & 31.2 & 1.47 \\
+Qwen-3.8-Flash (cloud) (partial) -- selfcheck & 938 & 452 & 63.3 & [58.8, 67.7] & 98.3 & 35.1 & 1.55 \\
+Qwen-3.8-Flash (cloud) (partial) -- steelman & 938 & 499 & 46.3 & [41.9, 50.7] & 97.7 & 51.4 & 2.11 \\
+Kimi-K2.8 (subscription) (partial) -- selfcheck & 52 & 19 & 94.7 & [84.7, 100.0] & 97.0 & 2.2 & 1.02 \\
+Kimi-K2.8 (subscription) (partial) -- steelman & 52 & 19 & 63.2 & [41.5, 84.8] & 90.9 & 27.8 & 1.44 \\
+Athena-s0 (local) (partial) -- selfcheck & 178 & 92 & 53.3 & [43.1, 63.5] & 95.3 & 42.1 & 1.79 \\
+Athena-s0 (local) (partial) -- steelman & 178 & 112 & 33.9 & [25.2, 42.7] & 93.8 & 59.9 & 2.77 \\
+Athena-s1 (local) (partial) -- selfcheck & 208 & 103 & 65.0 & [55.8, 74.3] & 98.1 & 33.0 & 1.51 \\
+Athena-s1 (local) (partial) -- steelman & 208 & 124 & 36.3 & [27.8, 44.8] & 97.6 & 61.3 & 2.69 \\
 \hline
 \end{tabular}
 \end{table}
