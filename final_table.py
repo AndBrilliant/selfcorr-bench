@@ -17,53 +17,66 @@ BENCH = Path.home() / "selfcorr-bench"
 CUT_TASKS = 947  # full MBPP sweep; anything below this is labeled partial
 
 FAMILIES = [
-    ("DeepSeek-V4.1-Flash (cloud)", "dsv4flash_mbpp.jsonl"),
-    ("GLM-5.3-Flash (cloud)",       "glm53_mbpp.jsonl"),
-    ("Qwen-3.8-Flash (cloud)",      "qwen38flash_mbpp.jsonl"),
-    ("Kimi-K2.8 (subscription)",    "kimi_mbpp.jsonl"),
-    ("Athena-s0 (local)",           "athena_mbpp_s0.jsonl"),
-    ("Athena-s1 (local)",           "athena_mbpp_s1.jsonl"),
+    ("DeepSeek-V4.1-Flash (cloud)", ["dsv4flash_mbpp.jsonl"]),
+    ("GLM-5.3-Flash (cloud)",       ["glm53_mbpp.jsonl"]),
+    ("Qwen-3.8-Flash (cloud)",      ["qwen38flash_mbpp.jsonl"]),
+    ("GPT-5.4 (cloud)",             ["gpt54_mbpp.jsonl"]),
+    ("GPT-6-Luna (cloud)",          ["gpt6luna_mbpp.jsonl"]),
+    ("Kimi-K2.8-hs (subscription)", ["kimi_mbpp.jsonl"]),
+    ("Athena Flash-Next (local)",   ["athena_mbpp_s0.jsonl", "athena_mbpp_s1.jsonl",
+                                     "athena_mbpp_c.jsonl", "athena_mbpp_d.jsonl",
+                                     "athena_mbpp_e.jsonl", "athena_mbpp_f.jsonl",
+                                     "athena_mbpp_g.jsonl", "athena_mbpp_h.jsonl",
+                                     "athena_mbpp_w1.jsonl", "athena_mbpp_w2.jsonl"]),
 ]
 
-def load_dedup(fn):
+def load_dedup(fns):
+    """Load one or more shards; dedup on (arm, idx) keeping the FIRST record
+    (gap-fill reruns appended later must not overwrite original measurements;
+    for Athena the s0 shard wins over s1 where they overlap)."""
     seen, rows = set(), []
-    p = BENCH / fn
-    if not p.exists():
-        return []
-    for line in open(p):
-        if not line.strip():
+    for fn in fns:
+        p = BENCH / fn
+        if not p.exists():
             continue
-        r = json.loads(line)
-        if "T" not in r or "accept" not in r:   # error records (429s etc.)
-            continue
-        key = (r["arm"], r["idx"])
-        if key in seen:
-            continue
-        seen.add(key)
-        rows.append(r)
+        for line in open(p):
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            if "T" not in r or "accept" not in r:   # error records (429s etc.)
+                continue
+            key = (r["arm"], r["idx"])
+            if key in seen:
+                continue
+            seen.add(key)
+            rows.append(r)
     return rows
+
+def wilson(p, n, z=1.96):
+    """Wilson score interval, matching the manuscript's stated convention."""
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = (z / d) * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))
+    return max(0, c - h), min(1, c + h)
 
 def rate(records):
     t0 = [r for r in records if r["T"] == 0]
     t1 = [r for r in records if r["T"] == 1]
     out = {}
-    z = 1.96
     for name, pool in (("kappa", t0), ("tau", t1)):
         if not pool:
             out[name] = None
             continue
         p = sum(r["accept"] for r in pool) / len(pool)
-        s = math.sqrt(p * (1 - p) / len(pool))
-        out[name] = {"n": len(pool), "p": p,
-                     "ci": (max(0, p - z * s), min(1, p + z * s))}
+        out[name] = {"n": len(pool), "p": p, "ci": wilson(p, len(pool))}
     return out
 
 report = {"generated": datetime.datetime.now().isoformat(), "families": {}}
 tex_rows = []
 print(f"{'model':30s} {'tasks':>5s} {'nT0':>5s} {'kappa%':>7s} {'CI':>15s} "
       f"{'nT1':>5s} {'tau%':>7s} {'Delta':>7s} {'Lambda':>7s}")
-for name, fn in FAMILIES:
-    rows = load_dedup(fn)
+for name, fns in FAMILIES:
+    rows = load_dedup(fns)
     if not rows:
         continue
     ntasks = len({r["idx"] for r in rows})
@@ -95,7 +108,7 @@ for name, fn in FAMILIES:
 
 header = r"""\begin{table}[t]
 \centering
-\caption{MBPP results, five model families. $\kappa = P(A{=}1 \mid T{=}0)$
+\caption{MBPP results, seven model families. $\kappa = P(A{=}1 \mid T{=}0)$
 (false-acceptance rate), $\tau = P(A{=}1 \mid T{=}1)$ (true-acceptance),
 $\Delta = \tau - \kappa$, $\Lambda = \tau/\kappa$. Partial sweeps noted.}
 \label{tab:kappa_mbpp}
