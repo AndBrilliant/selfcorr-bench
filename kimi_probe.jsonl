@@ -1,0 +1,1 @@
+{"arm": "selfcheck", "error": "RateLimitError: Error code: 429 - {'error': {'message': \"You've reached your weekly (7-day) usage limit. Your quota will reset when the current 7-day window ends. To continue now, purchase extra usage or upgrade your plan: https://www.kimi.com/membership/subscriptio", "task_id": "MBPP/260", "idx": 251, "model": "kimi-k28-hs", "seconds": 4.4}

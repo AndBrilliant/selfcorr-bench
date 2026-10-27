@@ -185,6 +185,7 @@ def main():
     ap.add_argument("--cap", type=float, default=25.0)
     ap.add_argument("--arms", default="selfcheck,steelman,external")
     ap.add_argument("--bench", default="humaneval", choices=["humaneval", "mbpp"])
+    ap.add_argument("--sleep", type=float, default=0.0, help="seconds to sleep between records (rate-limit pacing)")
     args = ap.parse_args()
     api_client.configure_tracker(args.cap)
     rows = load_rows(args.bench)
@@ -205,6 +206,8 @@ def main():
                 f.write(json.dumps(rec) + "\n")
             print(f"[{i}] {tid} {an}: T={rec.get('T')} A={rec.get('accept')} "
                   f"{rec.get('seconds')}s", flush=True)
+            if args.sleep > 0:
+                time.sleep(args.sleep)
     print("COST", json.dumps(api_client.get_tracker().summary()), flush=True)
 
 if __name__ == "__main__":

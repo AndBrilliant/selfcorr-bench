@@ -1,0 +1,1 @@
+{"arm": "selfcheck", "T": 0, "accept": 1, "why": "assertion failed: AssertionError", "verdict_text": "YES\nThe function correctly computes the sum of the first n terms of a geometric progression and handles the r == 1 case.", "task_id": "MBPP/491", "idx": 477, "model": "athena-flash", "seconds": 53.5}

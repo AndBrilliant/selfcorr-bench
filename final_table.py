@@ -27,7 +27,10 @@ FAMILIES = [
                                      "athena_mbpp_c.jsonl", "athena_mbpp_d.jsonl",
                                      "athena_mbpp_e.jsonl", "athena_mbpp_f.jsonl",
                                      "athena_mbpp_g.jsonl", "athena_mbpp_h.jsonl",
-                                     "athena_mbpp_w1.jsonl", "athena_mbpp_w2.jsonl"]),
+                                     "athena_mbpp_w1.jsonl", "athena_mbpp_w2.jsonl",
+                                     "athena_mbpp_x1.jsonl", "athena_mbpp_x2.jsonl",
+                                     "athena_mbpp_x3.jsonl", "athena_mbpp_x4.jsonl",
+                                     "athena_mbpp_x5.jsonl", "athena_mbpp_x6.jsonl"]),
 ]
 
 def load_dedup(fns):

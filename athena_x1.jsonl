@@ -1,0 +1,2 @@
+{"arm": "selfcheck", "error": "InternalServerError: Internal Server Error", "task_id": "MBPP/298", "idx": 288, "model": "athena-flash", "seconds": 1076.1}
+{"arm": "selfcheck", "error": "APITimeoutError: Request timed out.", "task_id": "MBPP/298", "idx": 288, "model": "athena-flash", "seconds": 1801.7}
