@@ -22,7 +22,7 @@ FAMILIES = [
     ("Qwen-3.8-Flash (cloud)",      ["qwen38flash_mbpp.jsonl"]),
     ("GPT-5.4 (cloud)",             ["gpt54_mbpp.jsonl"]),
     ("GPT-6-Luna (cloud)",          ["gpt6luna_mbpp.jsonl"]),  # complete 947 ($0.78)
-    ("Kimi-K2.8-hs (subscription)", ["kimi_mbpp.jsonl"]),
+    ("Kimi-K2.7-code (API)",        ["k27code_mbpp.jsonl"]),
     ("Athena Flash-Next (local)",   ["athena_mbpp_s0.jsonl", "athena_mbpp_s1.jsonl",
                                      "athena_mbpp_c.jsonl", "athena_mbpp_d.jsonl",
                                      "athena_mbpp_e.jsonl", "athena_mbpp_f.jsonl",
@@ -30,7 +30,14 @@ FAMILIES = [
                                      "athena_mbpp_w1.jsonl", "athena_mbpp_w2.jsonl",
                                      "athena_mbpp_x1.jsonl", "athena_mbpp_x2.jsonl",
                                      "athena_mbpp_x3.jsonl", "athena_mbpp_x4.jsonl",
-                                     "athena_mbpp_x5.jsonl", "athena_mbpp_x6.jsonl"]),
+                                     "athena_mbpp_x5.jsonl", "athena_mbpp_x6.jsonl",
+                                     "athena_single.jsonl", "athena_b1.jsonl",
+                                     "athena_b2.jsonl", "athena_b3.jsonl",
+                                     "athena_c1.jsonl", "athena_c2.jsonl",
+                                     "athena_c3.jsonl", "athena_c4.jsonl",
+                                     "athena_d1.jsonl", "athena_d2.jsonl",
+                                     "athena_d3.jsonl", "athena_d4.jsonl",
+                                     "athena_topup.jsonl"]),
 ]
 
 def load_dedup(fns):
