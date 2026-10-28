@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this benchmark data, please cite it using the metadata below."
+title: "Self-Correction Benchmark: Cross-Model Measurement on MBPP"
+authors:
+  - family-names: Brilliant
+    given-names: Andrew Michael
+    orcid: "https://orcid.org/0009-0004-8024-5442"
+type: dataset
+version: 1.0.0
+date-released: "2026-10-28"
+license: "CC-BY-NC-SA-4.0"
+keywords:
+  - LLM
+  - self-correction
+  - benchmark
+  - MBPP
+  - evaluation
+  - information theory
+preferred-citation:
+  type: article
+  title: "Limits of Self-Correction in LLMs: An Information-Theoretic Analysis of Correlated Errors"
+  authors:
+    - family-names: Brilliant
+      given-names: Andrew Michael
+      orcid: "https://orcid.org/0009-0004-8024-5442"
+  year: 2026
